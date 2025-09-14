@@ -30,7 +30,7 @@ export const login = async (req, res) => {
 
 export const adminLogin = async (req, res) => {
   if (!req.body || !req.body.email || !req.body.password) return res.status(400).json({ message: 'Email and password required' });
-  const adminEmail = 'admin@technmantranow.com';
+  const adminEmail = 'admin@techmantranow.com';
   const adminPassword = 'admin';
   let admin = await User.findOne({ email: adminEmail });
   if (!admin) {
