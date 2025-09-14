@@ -1,5 +1,4 @@
 import { useState } from "react"
-import Cookies from "js-cookie";
 
 const CreateRequest = () =>{
     const [formData, setFormData] = useState({
@@ -45,38 +44,45 @@ const CreateRequest = () =>{
     }
 
 
-    return(
+    return(  
+        
+       <div class="for-container"> 
+       
         <div>
         <form onSubmit={handleSubmit}>
-            <label>Requester Name</label>
-            <input type="text" placeholder="Enter your name" value={formData.RequesterName} onChange={(e) => setFormData({ ...formData, RequesterName: e.target.value })}/>
+            <label class="for-names">Requester Name:</label>
+            
+            <input type="text" class="for-boxes" placeholder="Enter your name" value={formData.RequesterName} onChange={(e) => setFormData({ ...formData, RequesterName: e.target.value })}/>
             <br/>
-           <label for="department">Choose a Department:</label>
-           <select id="department" name="department" value={formData.Department} onChange={(e) => setFormData({ ...formData, Department: e.target.value })}>
+           <label  class="for-names" for="department">Choose a Department:</label>
+           <select id="department" class="for-boxes" name="department" value={formData.Department} onChange={(e) => setFormData({ ...formData, Department: e.target.value })}>
             <option value="HR">HR</option>
             <option value="IT">IT</option>
             <option value="Finance">Finance</option>
             <option value="Marketing">Marketing</option>
             </select>
             <br/>
-            <label>Items</label>
-            <input type="text" placeholder="Enter items" value={formData.items} onChange={(e) => setFormData({ ...formData, items: e.target.value })}/>
+            <label class="for-names">Items:</label>
+            <input type="text" class="for-boxes" placeholder="Enter items" value={formData.items} onChange={(e) => setFormData({ ...formData, items: e.target.value })}/>
             <br/>
-            <label>Quantity</label>
-            <input type="number" placeholder="Enter quantity" value={formData.quantity} onChange={(e) => setFormData({ ...formData, quantity: e.target.value })}/>
+            <label class="for-names">Quantity:</label>
+            <input type="number" class="for-boxes" placeholder="Enter quantity" value={formData.quantity} onChange={(e) => setFormData({ ...formData, quantity: e.target.value })}/>
             <br/>
-            <label>Estimated Unit Cost</label>
-            <input type="number" placeholder="Enter estimated unit cost" value={formData.EstimatedUnitCost} onChange={(e) => setFormData({ ...formData, EstimatedUnitCost: e.target.value })}/>
+            <label class="for-names">Estimated Unit Cost:</label>
+            <input type="number" class="for-boxes" placeholder="Enter estimated unit cost" value={formData.EstimatedUnitCost} onChange={(e) => setFormData({ ...formData, EstimatedUnitCost: e.target.value })}/>
             <br/>
-            <label>Business Justification</label>
-            <input type="text" placeholder="Enter business justification" value={formData.BusinessJustification} onChange={(e) => setFormData({ ...formData, BusinessJustification: e.target.value })}/>
+            <label class="for-names">Business Justification:</label>
+            <input type="text" class="for-boxes" placeholder="Enter business justification" value={formData.BusinessJustification} onChange={(e) => setFormData({ ...formData, BusinessJustification: e.target.value })}/>
             <br/>
-            <label>Expected Delivery Date</label>
-            <input type="date" value={formData.RequiredDate} onChange={(e) => setFormData({ ...formData, RequiredDate: e.target.value })}/> 
+            <label class="for-names">Expected Delivery Date:</label>
+            <input type="date"  class="for-boxes" value={formData.RequiredDate} onChange={(e) => setFormData({ ...formData, RequiredDate: e.target.value })}/> 
             <br/>
-            <button type="submit" onClick = {handleSubmit}>Submit</button>
+            <button type="submit">Submit</button>
             </form>   
-        </div>
+        </div> 
+        
+    </div>   
+      
     )
 }
 
