@@ -1,6 +1,6 @@
 import { Component } from "react";
 import Cookies from "js-cookie";
-import { Navigate } from "react-router-dom";
+import { Navigate,redirect } from "react-router-dom";
 import "./index.css";
 const backendUrl = "http://localhost:5000";
 
@@ -12,15 +12,19 @@ class AdminLogin extends Component {
     redirectToHome: false,
     redirectToAdmin: false,
   };
-  componentDidMount(){
-    const jwtToken = Cookies.get("jwtToken");
-    if(jwtToken === undefined){
-      <Navigate to="/login" replace />
-    }
-    else{
-      <Navigate to="/home" replace />
-    } 
+  checkCookie = () => {
+    const token = Cookies.get("jwtToken");
+   if(!token){
+    <Navigate to = "/admin-login" replace/>;
+   }
+   else{
+    redirect("/admin-tasks-approval",{replace:true})
+   }
   }
+
+  componentDidMount(){
+    this.checkCookie();
+  } 
 
   onChangeUsername = (event) => {
     this.setState({ username: event.target.value });
@@ -47,6 +51,7 @@ class AdminLogin extends Component {
  if (response.ok) {
       Cookies.set("jwtToken", data.token);
       this.setState({ redirectToHome: true });
+      Navigate("/admin-tasks-approval", { replace: true });
     } else {
       this.setState({ showSubmitError: true });
     }
