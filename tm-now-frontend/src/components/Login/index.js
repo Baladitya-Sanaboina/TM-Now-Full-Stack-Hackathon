@@ -71,7 +71,7 @@ class Login extends Component {
     return (
       <div className="login-form-container">
         <img
-          src="https://res.cloudinary.com/dbylngblb/image/upload/v1725792897/traveltech-logo-s_nktssv.jpg"
+          src="https://res.cloudinary.com/dq3pwfv9f/image/upload/v1757827055/ll_mwlfuz.webp"
           className="login-website-logo-mobile-image"
           alt="website logo"
         />
