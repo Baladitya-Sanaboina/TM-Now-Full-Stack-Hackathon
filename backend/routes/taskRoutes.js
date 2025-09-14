@@ -10,7 +10,7 @@ router.post('/create', verifyUser, createTask);
 router.get('/person-tasks', verifyUser, getUserTasks);
 router.get('/admin/tasks', verifyAdmin, getTasks);
 router.get('/', getTasks);
-router.put('/update/:id', verifyAdmin, updateTask);
+router.put('/update/:id', updateTask);
 router.delete('/delete/:id', deleteTask);
 
 export default router;

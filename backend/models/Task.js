@@ -9,6 +9,7 @@ const taskSchema = new mongoose.Schema({
   EstimatedUnitCost: { type: Number, required: true },
   BusinessJustification: { type: String, required: true },
   RequiredDate: { type: Date },
+  createdBy: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
 });
 
 const Task = mongoose.model('Task', taskSchema);
