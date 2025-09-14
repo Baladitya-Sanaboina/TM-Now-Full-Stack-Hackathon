@@ -2,12 +2,12 @@ import Task from '../models/Task.js';
 
 export const createTask = async (req, res) => {
    
-  const { RequesterName, Department, items, quantity, EstimatedUnitCost, BusinessJustification, RequiredDate } = req.body;
-    try {
-      if (!RequesterName || !Department || !items || !quantity || !EstimatedUnitCost || !BusinessJustification || !RequiredDate) {
-        return res.status(400).json({ message: 'All fields are required.' });
-      }
-      const task = await Task.create({ title, description, details, status, verified, createdBy: req.user._id });
+  const { RequesterName, items, quantity, EstimatedUnitCost, BusinessJustification } = req.body;
+  try {
+    if (!RequesterName || !items || !quantity || !EstimatedUnitCost || !BusinessJustification) {
+      return res.status(400).json({ message: 'All fields are required.' });
+    }
+    const task = await Task.create({ RequesterName, items, quantity, EstimatedUnitCost, BusinessJustification });
       res.status(201).json(task);
     } catch (error) {
       res.status(500).json({ message: 'Server error', error: error.message });

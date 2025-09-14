@@ -1,19 +1,47 @@
 import { useState } from "react"
+import Cookies from "js-cookie";
 
 const CreateRequest = () =>{
     const [formData, setFormData] = useState({
         RequesterName: '',
-        Department: '',
+        Department: 'HR',
         items: '',
         quantity: '',
         EstimatedUnitCost: '',
         BusinessJustification: '',
         RequiredDate: ''
     });
+    const token = Cookies.get('jwtToken');
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async(e) => {
+        console.log(formData)
         e.preventDefault();
-        console.log(formData);
+        const url = "http://localhost:5000/api/tasks/create";
+        const options = {
+            method: "POST",
+            headers: {
+                'Content-Type': "application/json",
+                'Authorization': `Bearer ${token}`,
+            },
+            body: JSON.stringify(formData)
+    }
+        const response = await fetch(url, options);
+        const data = await response.json();
+
+        if(response.ok){
+            alert("Request created successfully");
+            setFormData({
+                RequesterName: '',
+                Department: '',
+                items: '',
+                quantity: '',
+                EstimatedUnitCost: '',
+                BusinessJustification: '',
+                RequiredDate: ''
+            });
+        }else{
+            alert(data.message || "Failed to create request");
+        }
     }
 
 
@@ -27,7 +55,7 @@ const CreateRequest = () =>{
            <select id="department" name="department" value={formData.Department} onChange={(e) => setFormData({ ...formData, Department: e.target.value })}>
             <option value="HR">HR</option>
             <option value="IT">IT</option>
-            <option value="finance">Finance</option>
+            <option value="Finance">Finance</option>
             <option value="Marketing">Marketing</option>
             </select>
             <br/>
@@ -46,7 +74,7 @@ const CreateRequest = () =>{
             <label>Expected Delivery Date</label>
             <input type="date" value={formData.RequiredDate} onChange={(e) => setFormData({ ...formData, RequiredDate: e.target.value })}/> 
             <br/>
-            <button type="submit">Submit</button>
+            <button type="submit" onClick = {handleSubmit}>Submit</button>
             </form>   
         </div>
     )

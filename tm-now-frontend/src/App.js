@@ -7,6 +7,7 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import AdminLogin from './components/AdminLogin';
 import AllRequests from './components/AllRequests';
 import CreateRequest from './components/CreateRequest';
+import AdminTasksApproval from './components/AdminTasksApproval';
 
 const App = () => {
   return (
@@ -25,6 +26,7 @@ const App = () => {
         <Route path = "/admin-login" element={<AdminLogin />} />
         <Route path = "/get-all-requests" element={<AllRequests />} />
         <Route path = "/create-request" element={<ProtectedRoute><CreateRequest/></ProtectedRoute>} />
+        <Route path = "/admin-tasks-approval" element={<ProtectedRoute><AdminTasksApproval/></ProtectedRoute>} />
       </Routes>
     </Router>
   );
