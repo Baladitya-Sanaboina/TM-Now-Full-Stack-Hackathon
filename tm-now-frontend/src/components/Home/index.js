@@ -1,7 +1,10 @@
+import HomeNav from '../Nav'
+
 const Home = () =>{
     return(
         <div>
-            <h1>Home Route</h1>
+        <HomeNav/>
+            
         </div>
     )
 }

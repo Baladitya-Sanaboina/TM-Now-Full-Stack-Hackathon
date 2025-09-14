@@ -2,6 +2,7 @@ import { Component } from "react";
 import Cookies from "js-cookie";
 import { Navigate } from "react-router-dom";
 import "./index.css";
+const backendUrl = "http://localhost:5000";
 
 class Login extends Component {
   state = {
@@ -11,6 +12,15 @@ class Login extends Component {
     redirectToHome: false,
     redirectToAdmin: false,
   };
+  componentDidMount(){
+    const jwtToken = Cookies.get("jwtToken");
+    if(jwtToken === undefined){
+      <Navigate to="/login" replace />
+    }
+    else{
+      <Navigate to="/home" replace />
+    } 
+  }
 
   onChangeUsername = (event) => {
     this.setState({ username: event.target.value });
@@ -20,10 +30,26 @@ class Login extends Component {
     this.setState({ password: event.target.value });
   };
 
-  submitForm = (event) => {
+  submitForm = async(event) => {
     event.preventDefault();
     const { username, password } = this.state;
-    console.log(username,password)
+    const requestBody = {email: username, password: password};
+    const url = "http://localhost:5000/api/auth/user/login";
+    const options = {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(requestBody),
+    };
+    const response = await fetch(url, options);
+    const data = await response.json();
+ if (response.ok) {
+      Cookies.set("jwtToken", data.token);
+      this.setState({ redirectToHome: true });
+    } else {
+      this.setState({ showSubmitError: true });
+    }
   };
 
   renderPasswordField = () => {
@@ -82,16 +108,13 @@ class Login extends Component {
         />
 
         <form className="form-container" onSubmit={this.submitForm}>
-          <img
-            src="https://res.cloudinary.com/dbylngblb/image/upload/v1725792897/traveltech-logo-s_nktssv.jpg"
-            className="login-website-logo-desktop-image"
-            alt="website logo"
-          />
+          <h1>User Login</h1>
           <div className="input-container">{this.renderUsernameField()}</div>
           <div className="input-container">{this.renderPasswordField()}</div>
           <button type="submit" className="login-button">
             Login
           </button>
+          <a href="/register">Don't have an account?</a>
           {showSubmitError && (
             <p className="error-message">*Wrong Credentials</p>
           )}

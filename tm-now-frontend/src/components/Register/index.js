@@ -1,0 +1,141 @@
+import { Component } from "react";
+import Cookies from "js-cookie";
+import { Navigate } from "react-router-dom";
+import "./index.css";
+const backendUrl = "http://localhost:5000";
+
+class Register extends Component {
+  state = {
+    username: "",
+    password: "",
+    name: "",
+    showSubmitError: false,
+    redirectToHome: false,
+    redirectToAdmin: false,
+  };
+
+  onChangeUsername = (event) => {
+    this.setState({ username: event.target.value });
+  };
+
+  onChangePassword = (event) => {
+    this.setState({ password: event.target.value });
+  };
+  onChangeName = (event) => {
+    this.setState({ name: event.target.value });
+  }
+
+  submitForm = async(event) => {
+    event.preventDefault();
+    const { name,username, password } = this.state;
+    const requestBody = {name: name,email: username, password: password};
+    const url = "http://localhost:5000/api/auth/user/register";
+    const options = {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(requestBody),
+    };
+    const response = await fetch(url, options);
+    const data = await response.json();
+    if (response.ok) {
+      Cookies.set("jwtToken", data.token);
+      this.setState({ redirectToHome: true });
+    } else {
+      this.setState({ showSubmitError: true });
+    }
+  };
+
+  renderPasswordField = () => {
+    const { password } = this.state;
+    return (
+      <>
+        <label className="input-label" htmlFor="password">
+          PASSWORD
+        </label>
+        <input
+          type="password"
+          id="password"
+          className="password-input-field"
+          value={password}
+          onChange={this.onChangePassword}
+        />
+      </>
+    );
+  };
+
+  renderUsernameField = () => {
+    const { username } = this.state;
+    return (
+      <>
+        <label className="input-label" htmlFor="username">
+          Email
+        </label>
+        <input
+          type="text"
+          id="username"
+          className="username-input-field"
+          value={username}
+          onChange={this.onChangeUsername}
+        />
+      </>
+    );
+  };
+  renderNameField = () => {
+    const { name } = this.state;
+    return (
+      <>
+        <label className="input-label" htmlFor="name">
+          Name
+        </label>
+        <input
+          type="text"
+          id="name"
+          className="username-input-field"
+          value={name}
+          onChange={this.onChangeName}
+        />
+      </>
+    );
+  };
+
+  render() {
+    const { showSubmitError, redirectToHome, redirectToAdmin } = this.state;
+    const jwtToken = Cookies.get("jwtToken");
+
+    
+
+    return (
+      <div className="login-form-container">
+        <img
+          src="https://res.cloudinary.com/dq3pwfv9f/image/upload/v1757827055/ll_mwlfuz.webp"
+          className="login-website-logo-mobile-image"
+          alt="website logo"
+        />
+        <img
+          src="https://res.cloudinary.com/dbylngblb/image/upload/v1725810406/ecommerce_login_epdede.png"
+          className="login-image"
+          alt="website login"
+        />
+
+
+        <form className="form-container" onSubmit={this.submitForm}>
+          <h1>User Registration</h1>
+          <div className="input-container">{this.renderUsernameField()}</div>
+          <div className="input-container">{this.renderNameField()}</div>
+          <div className="input-container">{this.renderPasswordField()}</div>
+          <button type="submit" className="login-button">
+            Login
+          </button>
+          <a href="/login">Already Have an Account?</a>
+          {showSubmitError && (
+            <p className="error-message">*Wrong Credentials</p>
+          )}
+        </form>
+      </div>
+    );
+  }
+}
+
+export default Register;

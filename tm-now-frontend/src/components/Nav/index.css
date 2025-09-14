@@ -1,0 +1,327 @@
+.navbar {
+  position: fixed;
+  top: 15px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 1000;
+  background: var(--card-background);
+  backdrop-filter: blur(20px);
+  border: 1px solid var(--border-color);
+  border-radius: 20px;
+  padding: 1px 20px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+}
+p,h1{
+    color: black !important;
+}
+
+.nav-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 5rem;
+  min-width: 1000px;
+}
+
+.nav-logo h2 {
+  font-size: 1.3rem;
+  font-weight: 700;
+  background: var(--logo-gradient);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  font-family: "Poppins", sans-serif;
+}
+
+.nav-menu {
+  display: flex;
+  gap: 2.5rem;
+  align-items: center;
+}
+
+.nav-link {
+  text-decoration: none;
+  font-weight: 500;
+  transition: all 0.3s ease;
+  padding: 3px 8px;
+  border-radius: 12px;
+  background: var(--button-gradient);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  position: relative;
+  font-size: 0.95rem;
+}
+
+.nav-link:hover {
+  text-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+  transform: translateY(-1px);
+}
+
+.nav-link.active {
+  background: none !important;
+  -webkit-background-clip: unset !important;
+  -webkit-text-fill-color: unset !important;
+  background-clip: unset !important;
+  color: var(--text-color) !important;
+  font-weight: 600;
+  position: relative;
+}
+
+.nav-link.active::after {
+  content: "";
+  position: absolute;
+  bottom: -2px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 80%;
+  height: 2px;
+  background: var(--accent-color);
+  border-radius: 1px;
+}
+
+.dark-mode .nav-link.active {
+  color: #ffffff !important;
+}
+
+.light-mode .nav-link.active {
+  color: #000000 !important;
+}
+
+.mobile-controls {
+  display: none;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.hamburger {
+  display: none;
+  flex-direction: column;
+  cursor: pointer;
+  padding: 4px;
+}
+
+.hamburger span {
+  width: 20px;
+  height: 2px;
+  background: var(--text-color);
+  margin: 2px 0;
+  transition: 0.3s;
+  border-radius: 2px;
+}
+
+.mobile-menu {
+  display: none;
+}
+
+.mobile-overlay {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 998;
+  transition: opacity 0.3s ease;
+}
+
+.mobile-overlay.active {
+  display: block;
+  background: rgba(0, 0, 0, 0.5);
+}
+
+.app.dark-mode .mobile-overlay.active {
+  background: rgba(0, 0, 0, 0.7);
+}
+
+.app.light-mode .mobile-overlay.active {
+  background: rgba(255, 255, 255, 0.8);
+}
+
+.mobile-menu.active {
+  display: flex;
+  flex-direction: column;
+  position: absolute;
+  top: calc(100% + 5px);
+  left: 0;
+  right: 0;
+  background: var(--card-background);
+  backdrop-filter: blur(20px);
+  border: 1px solid var(--border-color);
+  border-radius: 15px;
+  padding: 10px;
+  gap: 8px;
+  z-index: 999;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+}
+
+.mobile-menu .nav-link {
+  position: relative;
+  display: block;
+  padding: 8px 12px;
+  text-align: center;
+  width: 100%;
+}
+
+.theme-toggle {
+  cursor: pointer;
+  padding: 0.15rem;
+}
+
+.toggle-switch {
+  width: 50px;
+  height: 25px;
+  border-radius: 12px;
+  position: relative;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  display: flex;
+  align-items: center;
+}
+
+.toggle-switch.dark {
+  background: linear-gradient(45deg, #1e293b, #374151);
+}
+
+.toggle-switch.light {
+  background: linear-gradient(45deg, #fbbf24, #f59e0b);
+}
+
+.toggle-slider {
+  width: 21px;
+  height: 21px;
+  background: white;
+  border-radius: 50%;
+  position: absolute;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+}
+
+.toggle-switch.dark .toggle-slider {
+  transform: translateX(2px);
+}
+
+.toggle-switch.light .toggle-slider {
+  transform: translateX(27px);
+}
+
+.toggle-slider i {
+  font-size: 0.875rem;
+  color: #374151;
+  transition: all 0.3s ease;
+}
+
+.mobile-only {
+  display: none;
+}
+
+@media (max-width: 768px) {
+  .navbar {
+    top: 25px;
+    padding: 15px 20px;
+    border-radius: 15px;
+  }
+
+  .nav-container {
+    min-width: auto;
+    gap: 1rem;
+  }
+
+  .nav-menu {
+    display: none;
+  }
+
+  .mobile-controls {
+    display: flex;
+  }
+
+  .hamburger {
+    display: flex;
+  }
+
+  .desktop-only {
+    display: none;
+  }
+
+  .mobile-only {
+    display: block;
+  }
+
+  .mobile-controls .mobile-only .toggle-switch {
+    width: 45px !important;
+    height: 22px !important;
+    border-radius: 11px !important;
+  }
+
+  .mobile-controls .mobile-only .toggle-slider {
+    width: 18px !important;
+    height: 18px !important;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
+  }
+
+  .mobile-controls .mobile-only .toggle-switch.dark .toggle-slider {
+    transform: translateX(2px) !important;
+  }
+
+  .mobile-controls .mobile-only .toggle-switch.light .toggle-slider {
+    transform: translateX(25px) !important;
+  }
+
+  .mobile-controls .mobile-only .toggle-slider i {
+    font-size: 0.75rem !important;
+  }
+
+  .nav-link {
+    padding: 8px 0;
+    font-size: 0.9rem;
+    text-align: center;
+    position: relative;
+    display: block;
+  }
+
+  .nav-link.active::after {
+    width: 30% !important;
+    height: 1px !important;
+    bottom: 1px !important;
+    left: 50% !important;
+    transform: translateX(-50%) !important;
+  }
+
+  .mobile-menu .nav-link.active::after {
+    width: 25% !important;
+    height: 1px !important;
+    bottom: 2px !important;
+    left: 50% !important;
+    transform: translateX(-50%) !important;
+    position: absolute !important;
+  }
+
+  .nav-logo h2 {
+    font-size: 1.2rem;
+  }
+}
+
+@media (max-width: 600px) {
+  .navbar {
+    left: 10px;
+    right: 10px;
+    transform: none;
+    border-radius: 15px;
+    position: fixed;
+    top: 10px;
+  }
+
+  .nav-container {
+    min-width: auto;
+  }
+
+  .mobile-menu .nav-link.active::after {
+    width: 20% !important;
+    height: 1px !important;
+    bottom: 1px !important;
+    left: 50% !important;
+    transform: translateX(-50%) !important;
+  }
+}
