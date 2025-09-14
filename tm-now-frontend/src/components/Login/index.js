@@ -23,20 +23,7 @@ class Login extends Component {
   submitForm = (event) => {
     event.preventDefault();
     const { username, password } = this.state;
-
-    if (username === "admin" && password === "admin") {
-      Cookies.set("jwtToken", "admin", { expires: 30 });
-      this.setState({ redirectToAdmin: true });
-    } else if (
-      (username === "user1" || username === "user2") &&
-      (password === "user1" || password === "user2")
-    ) {
-      Cookies.set("jwtToken", "user", { expires: 30 });
-      Cookies.set("user", username, { expires: 30 });
-      this.setState({ redirectToHome: true });
-    } else {
-      this.setState({ showSubmitError: true });
-    }
+    console.log(username,password)
   };
 
   renderPasswordField = () => {
@@ -79,19 +66,7 @@ class Login extends Component {
     const { showSubmitError, redirectToHome, redirectToAdmin } = this.state;
     const jwtToken = Cookies.get("jwtToken");
 
-    if (jwtToken) {
-      if (jwtToken === "admin") {
-        return <Navigate to="/admin" />;
-      } else if (jwtToken === "user") {
-        return <Navigate to="/" />;
-      }
-    }
-
-    if (redirectToHome) {
-      return <Navigate to="/" />;
-    } else if (redirectToAdmin) {
-      return <Navigate to="/admin" />;
-    }
+    
 
     return (
       <div className="login-form-container">
@@ -126,4 +101,4 @@ class Login extends Component {
   }
 }
 
-export default Login;s
+export default Login;
